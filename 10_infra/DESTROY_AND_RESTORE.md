@@ -30,11 +30,7 @@ DB データを失わないよう、**RDS スナップショット取得 → des
 ### Step 1-1. RDS 手動スナップショットを取得
 
 ```bash
-aws rds create-db-snapshot \
-  --db-instance-identifier tastylog-dev-mysql-standalone \
-  --db-snapshot-identifier tastylog-dev-mysql-manual-20260622 \
-  --region ap-northeast-1 \
-  --profile terraform
+aws rds create-db-snapshot --db-instance-identifier tastylog-dev-mysql-standalone --db-snapshot-identifier tastylog-dev-mysql-manual-20260622 --region ap-northeast-1 --profile terraform
 ```
 
 **コマンドの意味（1つずつ）:**
