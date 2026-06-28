@@ -1,0 +1,24 @@
+name: "infra-preview-deploy"
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "10_infra/**"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+permissions:
+  # github-actionsがリポジトリの内容を読み取ることを許可する
+  contents: read
+  # githubによるOIDCトークンの発行を許可する
+  id-token: write
+
+jobs:
+  preview:
+    name: "Preview"
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Preview Deploy"
