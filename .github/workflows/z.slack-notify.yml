@@ -16,24 +16,26 @@ jobs:
           payload: |
             {
               "channel": "C0B8YPV5T2Q",
-                  {
-                    "attachments": [
-                        {
-                            "blocks": [
-                                {
-                                    "type": "header",
-                                    "text": {
-                                        "type": "plain_text",
-                                        "text": "Message Header",
-                                        "emoji": true
-                                    }
-                                },
-                                {
-                                    "type": "markdown",
-                                    "text": "Hello from Github Actions!!"
-                                }
-                            ]
-                        }
-                    ]
+              "text": "サンプル通知",
+              "attachments": [
+                {
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "Message Header",
+                        "emoji": true
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "Hello from Github Actions!!"
+                      }
+                    }
+                  ]
                 }
+              ]
             }
