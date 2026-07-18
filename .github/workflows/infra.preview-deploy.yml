@@ -39,7 +39,7 @@ jobs:
         uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: ${{ env.TF_VERSION }}
-          terraform_wrapper: false
+          # terraform_wrapper: false outputsを無効化する場合はコメントを外す
       - name: Terraform Format
         run: |
           terraform fmt -check
@@ -110,7 +110,6 @@ jobs:
         uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: ${{ env.TF_VERSION }}
-          # terraform_wrapper: false
       - name: Terraform Format
         run: |
           terraform fmt -check
