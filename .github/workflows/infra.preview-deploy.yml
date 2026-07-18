@@ -97,3 +97,31 @@ jobs:
                 }
               ]
             }
+  deploy:
+    name: "Deploy"
+    needs: preview
+    if: ${{ needs.preview.outputs.TF_PLAN_EXIT_CODE == 2 }}
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+          terraform_wrapper: false
+      - name: Terraform Format
+        run: |
+          terraform fmt -check
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6.1.0
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+      - name: Terraform Init
+        run: |
+          terraform init -no-color
+      - name: Terraform validate
+        run: |
+          terraform validate -no-color
