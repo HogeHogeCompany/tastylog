@@ -110,7 +110,7 @@ jobs:
         uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: ${{ env.TF_VERSION }}
-          terraform_wrapper: false
+          # terraform_wrapper: false
       - name: Terraform Format
         run: |
           terraform fmt -check
