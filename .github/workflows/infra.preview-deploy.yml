@@ -125,6 +125,7 @@ jobs:
         run: |
           terraform validate -no-color
       - name: Terraform apply
+        id: apply
         run: |
           terraform apply \
             -var 'project=${{ env.TF_PROJECT }}' \
@@ -134,3 +135,35 @@ jobs:
             -input=false \
             -no-color \
             -auto-approve
+      - name: Slack Notify
+        if: always()
+        uses: slackapi/slack-github-action@v3.0.3
+        with:
+          method: chat.postMessage
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          payload: |
+            {
+              "channel": "C0B8YPV5T2Q",
+              "text": "サンプル通知",
+              "attachments": [
+                {
+                  "blocks": [
+                    {
+                      "type": "header",
+                      "text": {
+                        "type": "plain_text",
+                        "text": "Runner finished Finished ${{ steps.apply.outcome}}",
+                        "emoji": true
+                      }
+                    },
+                    {
+                      "type": "section",
+                      "text": {
+                        "type": "mrkdwn",
+                        "text": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
